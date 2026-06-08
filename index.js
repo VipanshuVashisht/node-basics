@@ -7,7 +7,16 @@ const { logReqRes } = require("./middlewares"); //only import logReqRes from mid
 
 const app = express();
 
-connectDB();
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URL);
+        app.listen(3000);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+start();
 
 app.use(logReqRes("log.txt"));
 
